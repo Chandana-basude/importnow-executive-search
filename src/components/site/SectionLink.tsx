@@ -33,7 +33,7 @@ export function SectionLink({
   };
 
   return (
-    <Link to="/" hash={section} className={className} onClick={onClick} {...rest}>
+    <Link to="/" hash={section} className={className} activeProps={{ className: "" }} onClick={onClick} {...rest}>
       {children}
     </Link>
   );

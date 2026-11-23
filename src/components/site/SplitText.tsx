@@ -1,3 +1,4 @@
+import { useReveal } from "./Reveal";
 import { Children, cloneElement, isValidElement, type ElementType, type ReactElement, type ReactNode } from "react";
 
 /**
@@ -14,6 +15,7 @@ export function SplitText({
   className?: string;
   children: ReactNode;
 }) {
+  const [ref, shown] = useReveal<HTMLElement>();
   let index = 0;
 
   const split = (node: ReactNode): ReactNode =>
@@ -41,5 +43,9 @@ export function SplitText({
       return child;
     });
 
-  return <Tag className={["split rv", className].filter(Boolean).join(" ")}>{split(children)}</Tag>;
+  return (
+    <Tag ref={ref} className={["split rv", className, shown && "in"].filter(Boolean).join(" ")}>
+      {split(children)}
+    </Tag>
+  );
 }

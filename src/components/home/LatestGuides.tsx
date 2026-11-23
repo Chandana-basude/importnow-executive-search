@@ -14,9 +14,11 @@ export function LatestGuides() {
             <SplitText className="d1">Learn before you import.</SplitText>
             <Reveal as="p" delay={2}>Practical guides on sourcing, shipping, customs and business ideas from China.</Reveal>
           </div>
-          <Link to="/blog" className="btn btn-ghost rv">
-            View all articles →
-          </Link>
+          <Reveal>
+            <Link to="/blog" className="btn btn-ghost">
+              View all articles →
+            </Link>
+          </Reveal>
         </div>
         <div className="post-grid three">
           {POSTS.slice(0, 3).map((p, i) => (

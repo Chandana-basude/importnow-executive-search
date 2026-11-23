@@ -1,40 +1,14 @@
 import { useEffect } from "react";
-import { useRouterState } from "@tanstack/react-router";
 
 const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const finePointer = () => window.matchMedia("(hover:hover) and (pointer:fine)").matches;
 
 /**
  * Site-wide motion, mounted once in the root layout:
- * - reveal-on-scroll: adds .in to every .rv element as it enters the viewport (also ones rendered later)
  * - scroll progress bar
  * - 3D tilt on .tilt cards and a slight magnetic pull on buttons (mouse only)
  */
 export function MotionEffects() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  // Reveal on scroll
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            io.unobserve(e.target);
-          }
-        }),
-      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" },
-    );
-    const observeAll = () => document.querySelectorAll(".rv:not(.in)").forEach((el) => io.observe(el));
-    observeAll();
-    const mo = new MutationObserver(observeAll);
-    mo.observe(document.body, { childList: true, subtree: true });
-    return () => {
-      mo.disconnect();
-      io.disconnect();
-    };
-  }, [pathname]);
-
   // Tilt + magnetic buttons
   useEffect(() => {
     if (!finePointer() || prefersReducedMotion()) return;

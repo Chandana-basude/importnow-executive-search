@@ -17,9 +17,10 @@ import {
 } from "@/data/home";
 import { CHINA_COMPANY } from "@/data/site";
 import { useRef, type PointerEvent } from "react";
-import { Reveal } from "@/components/site/Reveal";
+import { Reveal, type RevealDelay } from "@/components/site/Reveal";
 
-const delay = (i: number, cycle = 3) => (i % cycle ? ` d${i % cycle}` : "");
+/** Staggers cards within a row: 0, 1, 2, 0, 1, 2… */
+const stagger = (i: number, cycle = 3) => (i % cycle) as RevealDelay;
 
 export function Marquee() {
   // Rendered twice so the -50% translate loops seamlessly.
