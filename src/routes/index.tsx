@@ -1,23 +1,45 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Contact } from "@/components/home/Contact";
+import { Faq } from "@/components/home/Faq";
+import { Hero } from "@/components/home/Hero";
+import { Journey } from "@/components/home/Journey";
+import { LatestGuides } from "@/components/home/LatestGuides";
+import { Marquee, Products, Services, Shanghai, Stories, Trips, Work } from "@/components/home/Sections";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const TITLE = "ImportNow — Import Directly from China to India";
+const DESCRIPTION =
+  "End-to-end imports from China to India: product sourcing, factory inspection, shipping, customs clearance and doorstep delivery. Own company in Shanghai. Trusted by 500+ Indian businesses.";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+/** Section order matches the reference site. */
+function HomePage() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Hero />
+      <Marquee />
+      <Services />
+      <Journey />
+      <Products />
+      <Shanghai />
+      <Trips />
+      <Work />
+      <Stories />
+      <LatestGuides />
+      <Faq />
+      <Contact />
+    </>
   );
 }
